@@ -1,0 +1,104 @@
+[
+  {
+    "id": "1042",
+    "parent": "0",
+    "weight": "-4617",
+    "title": "fdasf",
+    "path": "/fdasf",
+    "user": "1",
+    "type": "page",
+    "status": "published",
+    "nodes": [
+      {
+        "id": "1038",
+        "parent": "1042",
+        "weight": "-4620",
+        "title": "test sub",
+        "path": "/test-sub",
+        "user": "1",
+        "type": "page",
+        "status": "published",
+        "nodes": [
+          {
+            "id": "1041",
+            "parent": "1038",
+            "weight": "-50",
+            "title": "fa",
+            "path": "/fa",
+            "user": "1",
+            "type": "page",
+            "status": "published",
+            "nodes": []
+          }
+        ]
+      },
+      {
+        "id": "1043",
+        "parent": "1042",
+        "weight": "-4619",
+        "title": "hjghjghj",
+        "path": "/hjghjghj",
+        "user": "1",
+        "type": "page",
+        "status": "published",
+        "nodes": []
+      },
+      {
+        "id": "1040",
+        "parent": "1042",
+        "weight": "-4614",
+        "title": "test",
+        "path": "/content/test",
+        "user": "1",
+        "type": "event",
+        "status": null,
+        "nodes": []
+      },
+      {
+        "id": "1045",
+        "parent": "1042",
+        "weight": "-4609",
+        "title": "ii",
+        "path": "/ii",
+        "user": "1",
+        "type": "page",
+        "status": "draft",
+        "nodes": []
+      },
+      {
+        "id": "1046",
+        "parent": "1042",
+        "weight": "-50",
+        "title": "jj",
+        "path": "/jj",
+        "user": "1",
+        "type": "page",
+        "status": "draft",
+        "nodes": []
+      }
+    ]
+  },
+  {
+    "id": "1037",
+    "parent": "0",
+    "weight": "-461",
+    "title": "test",
+    "path": "/test",
+    "user": "1",
+    "type": "page",
+    "status": "published",
+    "nodes": [
+      {
+        "id": "1039",
+        "parent": "1037",
+        "weight": "-50",
+        "title": "test sub 2",
+        "path": "/test-sub-2",
+        "user": "1",
+        "type": "page",
+        "status": "draft",
+        "nodes": []
+      }
+    ]
+  }
+]

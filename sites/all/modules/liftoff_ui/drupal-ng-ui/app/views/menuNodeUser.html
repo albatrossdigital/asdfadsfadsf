@@ -1,0 +1,8 @@
+<div class="btn-group btn-group-radius" dropdown nodrag>
+  <button type="button" class="btn btn-xs" dropdown-toggle>
+    <span class="glyphicon glyphicon-user"></span> {{name}}
+  </button>
+  <ul class="dropdown-menu" nodrag>
+    <li ng-repeat="user in users"><a href ng-click="userChange(user)" nodrag>{{user.name}}</a></li>
+  </ul>
+</div>

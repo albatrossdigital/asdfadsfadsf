@@ -1,0 +1,5 @@
+<span class="title-wrapper" ng-class="{'editing': node.editing}">
+  <a class="title-text" ng-href="{{node.path}}">{{node.title}}</a>
+  <a class="title-edit" href="" data-nodrag="" ng-click="titleEditBegin(node.id)"><span class="glyphicon glyphicon-pencil"></span> </a>
+  <input class="title-input" type="text" value="{{node.title}}" placeholder="Enter title" ng-model="node.title" ng-blur="titleEditDone()" id="title-{{node.id}}">
+</span>

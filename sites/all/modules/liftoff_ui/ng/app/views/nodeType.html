@@ -1,0 +1,6 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-xs" dropdown-toggle style="background-color:{{type.color}};color:white;"><span class="glyphicon glyphicon-{{type.icon}}"></span> {{type.name}}</button>
+  <ul class="dropdown-menu" type-list>
+    <li ng-repeat="type in types"><a href="#"><span class="glyphicon glyphicon-{{type.icon}}"></span> {{type.name}}</a></li>
+  </ul>
+</div>

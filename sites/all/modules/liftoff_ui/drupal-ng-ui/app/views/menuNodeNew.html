@@ -1,0 +1,10 @@
+<div class="btn-group btn-group-radius" dropdown>
+  <button class="btn btn-primary btn-xs" dropdown-toggle style="margin-right: 8px;">
+    <span class="glyphicon glyphicon-plus"></span><span class="new-label"> Create New</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li ng-repeat="type in types">
+      <a href ng-click="itemNew(this.$parent.$parent, type.key)"><span class="glyphicon glyphicon-{{type.icon}}"></span> {{type.name}}</a>
+    </li>
+  </ul>
+</div>

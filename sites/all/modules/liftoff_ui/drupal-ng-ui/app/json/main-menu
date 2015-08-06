@@ -1,0 +1,58 @@
+[{
+  "id": 1,
+  "title": "About",
+  "user": "aschmoe",
+  "type": "overview",
+  "status": "draft",
+  "nodes": [
+    {
+      "id": 11,
+      "title": "The Team",
+      "user": "jlyon",
+      "type": "page",
+      "status": "pending",
+      "nodes": [
+        {
+          "id": 111,
+          "title": "El jeffe",
+          "user": "aschmoe",
+          "type": "link",
+          "status": "approved",
+          "nodes": []
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "The Mission",
+      "user": "jlyon",
+      "type": "link",
+      "status": "draft",
+      "nodes": []
+    }
+  ]
+}, {
+  "id": 2,
+  "title": "Projects",
+  "user": "aschmoe",
+  "type": "overview",
+  "status": "draft",
+  "nodes": [
+    {
+      "id": 21,
+      "title": "Sex on the beach",
+      "user": "jlyon",
+      "type": "page",
+      "status": "draft",
+      "nodes": []
+    },
+    {
+      "id": 22,
+      "title": "Sex in a tree",
+      "user": "aschmoe",
+      "type": "overview",
+      "status": "draft",
+      "nodes": []
+    }
+  ]
+}]

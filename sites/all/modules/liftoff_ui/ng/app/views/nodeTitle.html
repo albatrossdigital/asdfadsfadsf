@@ -1,0 +1,5 @@
+<span class="title-wrapper" ng-class="{'editing': node.editing}">
+  <span class="title-text">{{node.title}}</span>
+  <a class="title-edit" ng-click="titleEditBegin()"><span class="glyphicon glyphicon-pencil"></span> </a>
+  <input class="title-input" type="text" value="{{node.title}}" placeholder="Enter title" ng-model="node.title" ng-blur="titleEditDone()" />
+</span>

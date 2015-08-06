@@ -1,0 +1,299 @@
+<?php
+/**
+ * @file
+ * Code for the Liftoff UI feature.
+ */
+
+include_once 'liftoff_ui.features.inc';
+
+/**
+ * Implements hook_permission().
+ */
+function liftoff_ui_permission() {
+  return array(
+    "soar menu retrieve menu" => array(
+      'title' => t('Get menu'),
+    ),
+    "soar menu administer" => array(
+      'title' => t('Get menu'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function liftoff_ui_menu() {
+  $items['admin/soar'] = array(
+    'title' => 'Manage Menu',
+    'description' => 'Configure the menu',
+    'page callback' => 'liftoff_ui_callback',
+    'page arguments' => array('bestsellers_admin_settings'),
+    'access arguments' => array('soar menu administer'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function liftoff_ui_menu_alter(&$items) {
+  
+  unset($items['node/%node/view']['title callback']);
+ 
+  $items['node/%node/edit']['title'] = t('Advanced Edit');
+  unset($items['node/%node/edit']['title callback']);
+
+  $items['node/%node/moderation']['title'] = t('History');
+dpm($items);
+  return $items;
+}
+
+function liftoff_ui_app_path() {
+  return drupal_get_path('module', 'liftoff_ui') . '/drupal-ng-ui/dist/';
+}
+
+/**
+ * Implements hook_library().
+ */
+function liftoff_ui_library() {
+  // Library One.
+  $path = liftoff_ui_app_path();
+  $libraries['soar-admin-app'] = array(
+    'title' => 'Soar Admin app',
+    'website' => 'http://albatrossdigital.com',
+    'version' => '1.1',
+    'js' => array(
+      $path . 'bower_components/angular/angular.js' => array(),
+      $path . 'scripts/plugins.js' => array(),
+      $path . 'scripts/modules.js' => array(),
+      $path . 'scripts/scripts.js' => array(),
+      'http://apis.google.com/js/client.js' => array('type' => 'external'),
+      'http://apis.google.com/js/api.js' => array('type' => 'external'),
+    ),
+    'css' => array(
+      $path . 'styles/main.css' => array(
+        'type' => 'file',
+        'media' => 'screen',
+      ),
+    ),
+  );
+  return $libraries;
+}
+
+
+function liftoff_ui_callback_quickedit_redirect($node) {
+  drupal_goto('node/'. $node->nid .'/edit');
+}
+
+
+/**
+ * Main app page callback.
+ */
+function liftoff_ui_callback($menu_name = 'main-menu') {
+  drupal_add_library('liftoff_ui', 'soar-admin-app');
+  return theme('liftoff_ui_app');  // @todo: variables?
+}
+
+/**
+ * Implements hook_theme().
+ */
+function liftoff_ui_theme() {
+  //$path = drupal_get_path('module', 'liftoff_ui');
+  return array(
+    'liftoff_ui_app' => array(
+      'template' => 'templates/app',
+      'variables' => array(
+        'app_path' => url(liftoff_ui_app_path()),
+        'api_path' => url('services/rest'),
+      )
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_node_view().
+ */
+function liftoff_ui_node_view($node, $view_mode, $langcode) {
+  if ($view_mode === 'full') {
+    $path = drupal_get_path('module', 'liftoff_ui');
+    $node->content['body']['#attached'] = array(
+      'js' => array(
+        $path  . '/js/node.js' => array(),
+      )
+    );
+  }
+    dpm($node);
+  /*$node->content['my_additional_field'] = array(
+    '#markup' => $additional_field,
+    '#weight' => 10,
+    '#theme' => 'mymodule_my_additional_field',
+  );*/
+  
+}
+
+
+
+
+
+/**
+ * Implements hook_services_resources().
+ */
+function liftoff_ui_services_resources() {
+  return array(
+    'liftoff_ui' => array(
+      'retrieve' => array(
+        'help' => 'Retrieve a menu item',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'liftoff_ui',
+          'name' => 'liftoff_ui.resource'
+        ),
+        'callback' => '_liftoff_ui_menu_retrieve',
+        'access callback' => '_liftoff_ui_menu_access',
+        'access arguments' => array('view'),
+        'access arguments append' => TRUE,
+        'args' => array(
+          array(
+            'name' => 'mlid',
+            'type' => 'integer',
+            'description' => 'The menu mlid of the item',
+            'source' => array('path' => '0'),
+            'optional' => FALSE,
+          ),
+        ),
+      ),
+      'create' => array(
+        'help' => 'Create a new menu item',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'liftoff_ui',
+          'name' => 'liftoff_ui.resource'
+        ),
+        'callback' => '_liftoff_ui_menu_save',
+        'access callback' => '_liftoff_ui_menu_access',
+        'access arguments' => array('view'),
+        'access arguments append' => TRUE,
+        'args' => array(
+          array(
+            'name' => 'menu_item',
+            'type' => 'integer',
+            'description' => 'The menu item data to create',
+            'source' => 'data',
+            'optional' => FALSE,
+          ),
+        ),
+      ),
+      'update' => array(
+        'help' => 'Update an existing menu item',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'liftoff_ui',
+          'name' => 'liftoff_ui.resource'
+        ),
+        'callback' => '_liftoff_ui_menu_save',
+        'access callback' => '_liftoff_ui_menu_access',
+        'access arguments' => array('view'),
+        'access arguments append' => TRUE,
+        'args' => array(
+          array(
+            'name' => 'mlid',
+            'type' => 'integer',
+            'description' => 'The menu mlid of the item',
+            'source' => array('path' => '0'),
+            'optional' => FALSE,
+          ),
+          array(
+            'name' => 'menu_item',
+            'type' => 'integer',
+            'description' => 'The menu item data to create',
+            'source' => 'data',
+            'optional' => FALSE,
+          ),
+        ),
+      ),
+      'delete' => array(
+        'help' => 'Create a new menu item',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'liftoff_ui',
+          'name' => 'liftoff_ui.resource'
+        ),
+        'callback' => '_liftoff_ui_menu_tree',
+        'access callback' => '_liftoff_ui_menu_access',
+        'access arguments' => array('view'),
+        'access arguments append' => TRUE,
+        'args' => array(
+          array(
+            'name' => 'mid',
+            'type' => 'integer',
+            'description' => 'The menu mid of the item',
+            'source' => array('path' => '0'),
+            'optional' => FALSE,
+          ),
+        ),
+      ),
+      'index' => array(
+        'help' => 'Retrieves a complete menu tree',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'liftoff_ui',
+          'name' => 'liftoff_ui.resource'
+        ),
+        'callback' => '_liftoff_ui_menu_index',
+        'access callback' => '_liftoff_ui_menu_access',
+        'access arguments' => array('view'),
+        'access arguments append' => TRUE,
+        'args' => array(
+          array(
+            'name' => 'menu_name',
+            'type' => 'string',
+            'description' => 'The name of the menu to get',
+            'source' => array('param' => 'menu_name'),
+            'optional' => FALSE,
+          ),
+        ),
+      ),  
+    ),
+
+  );
+}
+
+function liftoff_ui_services_resources_alter(&$resources, &$endpoint) {
+dpm($resources);
+}
+
+
+/**
+ * Access callback for the menu resource.
+ *
+ * @param $op
+ *   The operation that's going to be performed.
+ * @param $args
+ *   The arguments that will be passed to the callback.
+ *
+ * @return bool
+ *   Whether access is given or not.
+ */
+function _liftoff_ui_menu_access($op = 'view', $args = array()) {
+
+  global $user;
+  $access = FALSE;
+  $access = user_access("soar menu retrieve menu");
+  /*switch ($op) {
+    case 'view':
+
+      $access = user_access("services menu retrieve menu");
+
+      if (!in_array($args[0], menu_get_names()))
+        return services_error(t('Menu @menu_name could not be found', array('@menu_name' => $args[0])), 404);
+
+      break;
+  }*/
+
+  return $access;
+}

@@ -1,0 +1,11 @@
+name = Liftoff UI
+description = An elegant, angular-based admin interface for Drupal
+core = 7.x
+package = Liftoff
+dependencies[] = ctools
+dependencies[] = services
+dependencies[] = workbench
+features[ctools][] = services:services:3
+features[features_api][] = api:2
+features[services_endpoint][] = liftoff_ui
+mtime = 1417857363

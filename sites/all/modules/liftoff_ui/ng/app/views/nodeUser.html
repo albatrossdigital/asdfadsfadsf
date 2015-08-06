@@ -1,0 +1,8 @@
+<div class="btn-group" dropdown>
+  <button type="button" class="btn btn-xs" dropdown-toggle>
+    <span class="glyphicon glyphicon-user"></span> {{node.user}}
+  </button>
+  <ul class="dropdown-menu">
+    <li ng-repeat="user in users"><a ng-click="userChange(user.name)">{{user.name}}</a></li>
+  </ul>
+</div>

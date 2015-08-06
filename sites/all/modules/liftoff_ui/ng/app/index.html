@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS UI Tree demo</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../dist/angular-ui-tree.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<div ng-app="app.tree">
+
+  <div class="container" ng-controller="treeCtrl">
+
+    <div class="row">
+      <div class="col-lg-6">
+        <h3>Tree view
+        </h3>
+
+        <p>
+          <div class= "pull-right">
+            Search: <input ng-model="query" ng-change="findNodes()"/>
+          </div>
+          <span node-new></span>
+        </p>
+
+        <!-- Nested node template -->
+        <script type="text/ng-template" id="nodes_renderer.html">
+
+
+          <div ui-tree-handle class="tree-node tree-node-content">
+
+            <a class="" nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+
+            <span node-title nodrag></span>
+            <span node-type nodrag></span>
+
+            <span class="pull-right glyphicon glyphicon-move"></span>
+            <span node-delete nodrag class="pull-right node-delete"></span>
+            <span node-new nodrag class="pull-right node-new"></span>
+
+            <span node-status nodrag class="pull-right"></span>
+            <span node-user nodrag class="pull-right"></span>
+            
+          </div>
+          <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+            <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'" ng-show="visible(node)">
+            </li>
+          </ol>
+        </script>
+        <div ui-tree id="tree-root">
+          <ol ui-tree-nodes="" ng-model="data">
+            <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'" ng-show="visible(node)"></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <h3>Data binding</h3>
+        <div class="info">
+            {{info}}
+        </div>
+        <pre class="code">{{ data | json }}</pre>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="text/ng-template" id="myModalContent.html">
+      <div class="modal-header">
+          <h3 class="modal-title">Im a modal!</h3>
+      </div>
+      <div class="modal-body">
+          <ul>
+              <li ng-repeat="item in items">
+                  <a ng-click="selected.item = item">{{ item }}</a>
+              </li>
+          </ul>
+          Selected: <b>{{ selected.item }}</b>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="ok()">OK</button>
+          <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+      </div>
+  </script>
+
+
+  <!--[if IE 8]>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.min.js"></script>
+  <![endif]-->
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.js"></script>
+  <script type="text/javascript" src="../dist/angular-ui-tree.js"></script>
+
+  <script type="text/javascript" src="js/controllers/modalCtrl.js"></script>
+  <script type="text/javascript" src="js/controllers/treeCtrl.js"></script>
+
+  <script type="text/javascript" src="js/directives/item.js"></script>
+
+</body>
+</html>

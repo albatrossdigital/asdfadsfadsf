@@ -1,0 +1,6 @@
+<div class="btn-group btn-group-radius" dropdown>
+  <button type="button" class="btn btn-{{size}}" dropdown-toggle style="background-color:{{type.color}};color:white;" ng-click="typeClick(node)"><span class="glyphicon glyphicon-{{type.icon}}"></span> {{type.name}}</button>
+  <ul class="dropdown-menu" ng-if="dropdown">
+    <li ng-repeat="type in types"><a href ng-click="typeSelect(type.key)"><span class="glyphicon glyphicon-{{type.icon}}"></span> {{type.name}}</a></li>
+  </ul>
+</div>

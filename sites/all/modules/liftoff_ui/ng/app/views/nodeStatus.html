@@ -1,0 +1,10 @@
+<div class="btn-group" dropdown>
+  <button type="button" class="btn btn-xs btn-{{status.class}} no-padding" ng-click="statusIncrease()">{{status.name}}</button>
+  <button type="button" class="btn btn-xs btn-{{status.class}} dropdown-toggle" dropdown-toggle>
+    <span class="caret"></span>
+    <span class="sr-only">Change status</span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="status in statuses"><a href="#" ng-click="statusChange(status.key)">{{status.name}}</a></li>
+  </ul>
+</div>
