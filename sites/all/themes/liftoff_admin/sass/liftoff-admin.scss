@@ -1,0 +1,61 @@
+.tabs--primary,
+//.page-node .alert,
+.page-admin-appearance-fontyourface  .ui-helper-reset
+ {
+  display: none;
+}
+
+.page-node:not(.page-node-edit) {
+  section#block-system-main>.node {
+    max-width: 680px;
+    padding-right: 180px;
+    margin: 0 auto;
+
+    .submitted {
+      display: none;
+    }
+
+    .contextual-links-wrapper {
+      margin-left: 130px;
+      display: block !important;
+      
+      .contextual-links-trigger {
+        display: none !important;
+      }
+
+      .contextual-links {
+        display: block !important;
+        padding: 0;
+        border: none;
+        width: 150px;
+
+        a {
+          padding: 10px 15px;
+          font-size: 14px;
+          color: #337ab7 !important;
+          border-radius: 4px;
+
+          &:hover {
+            background-color: #eee;
+          }
+
+          &.active,
+          &[aria-pressed=true] {
+            background-color: #337AB7;
+            color: #fff !important;
+          }
+        }
+      }
+    }
+  }
+
+  h1.page-header {
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.field-name-body .field-item {
+  min-height: 200px;
+}

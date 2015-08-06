@@ -1,0 +1,15 @@
+name = Liftoff admin theme 
+description = Subtheme based on soar_admin + bootstrap.
+screenshot = images/screenshot.png
+
+core = 7.x
+engine = phptemplate
+base theme = soar_admin
+
+; This section controls the CSS files for your theme.
+stylesheets[all][] = css/liftoff-admin.css
+
+; Theme scripts.
+; This file is empty, just uncomment this line and start editing!
+scripts[] = js/liftoff-admin.js
+
